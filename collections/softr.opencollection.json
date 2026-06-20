@@ -1,0 +1,240 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Softr API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Softr-Api-Key",
+      "value": "{{softrApiKey}}",
+      "in": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" },
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"full_name\": \"John Richardson\",\n  \"email\": \"johnr@gmail.com\",\n  \"password\": \"12345678\",\n  \"generate_magic_link\": true\n}"
+            }
+          },
+          "docs": "Creates a user inside the specified Softr app. Password is auto-generated if omitted."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://studio-api.softr.io/v1/api/users/{email}",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" }
+            ]
+          },
+          "docs": "Removes an existing user from the Softr app. Irreversible."
+        },
+        {
+          "info": {
+            "name": "Activate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/{email}/activate",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" }
+            ]
+          },
+          "docs": "Reactivates a previously deactivated user."
+        },
+        {
+          "info": {
+            "name": "Deactivate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/{email}/deactivate",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" }
+            ]
+          },
+          "docs": "Deactivates a user, disabling login while preserving the record."
+        },
+        {
+          "info": {
+            "name": "Invite a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/{email}/invite",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" }
+            ]
+          },
+          "docs": "Sends an invitation email to an existing user. The app must be published."
+        },
+        {
+          "info": {
+            "name": "Generate a Magic Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/magic-link/generate/{email}",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" }
+            ]
+          },
+          "docs": "Generates a Magic Link granting passwordless access for the user."
+        },
+        {
+          "info": {
+            "name": "Sync users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/sync",
+            "headers": [
+              { "name": "Softr-Domain", "value": "{{softrDomain}}" },
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Syncs a single user, a group of users, or all users of the Softr app."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Database",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List databases",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://tables-api.softr.io/api/v1/databases"
+          },
+          "docs": "Lists the Softr Databases accessible to the API token."
+        },
+        {
+          "info": {
+            "name": "List records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records?limit=20&offset=0&fieldNames=true"
+          },
+          "docs": "Retrieves records from a table with pagination (limit max 200)."
+        },
+        {
+          "info": {
+            "name": "Create a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"fields\": {\n    \"Name\": \"Acme Co\",\n    \"Status\": \"Active\"\n  }\n}"
+            }
+          },
+          "docs": "Creates a record in the specified table."
+        },
+        {
+          "info": {
+            "name": "Get a single record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}"
+          },
+          "docs": "Retrieves a single record by ID."
+        },
+        {
+          "info": {
+            "name": "Update a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"fields\": {\n    \"Status\": \"Inactive\"\n  }\n}"
+            }
+          },
+          "docs": "Updates a record's fields."
+        },
+        {
+          "info": {
+            "name": "Delete a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}"
+          },
+          "docs": "Deletes a record by ID."
+        },
+        {
+          "info": {
+            "name": "Search records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/search",
+            "headers": [
+              { "name": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{\n  \"filters\": {\n    \"Status\": \"Active\"\n  }\n}"
+            }
+          },
+          "docs": "Searches and filters records in a table."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

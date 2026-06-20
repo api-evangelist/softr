@@ -1,0 +1,105 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Softr
+providerId: softr
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- No Code
+- App Builder
+- Client Portals
+- Database
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of Softr spend. Softr bills a flat monthly subscription per plan
+  (Free, Basic, Professional, Business, Enterprise) rather than per-API-call.
+  Cost drivers are the plan tier plus consumption against plan allowances: app
+  users (with metered overages on Professional at +$10 per 10 users up to 250),
+  Softr Database records, AI credits, and Workflow actions. API access is a
+  plan feature unlocked from Professional upward.
+notes: >-
+  Subscription prices and allowances reflect softr.io/pricing at annual billing;
+  month-to-month is higher. Verify overage rules and allowances during
+  reconciliation.
+sources:
+- https://www.softr.io/pricing
+- https://docs.softr.io/workspace-and-billing/pricing-and-plans
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Softr
+serviceCategory: Developer Tools and No-Code Platforms
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+  - Adjustment
+focusColumns:
+  ServiceName: Softr
+  ServiceCategory: Developer Tools and No-Code Platforms
+  ProviderName: Softr
+  PublisherName: Softr
+  InvoiceIssuerName: Softr Platforms GmbH
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: subscription_plan
+  description: Flat monthly subscription fee for the selected Softr plan.
+  unit: months
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: app_users
+  description: Published-app end users counted against the plan allowance; overage-billed on Professional (+$10 per 10 users up to 250).
+  unit: users
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+  - app
+- name: database_records
+  description: Records stored in Softr Databases, counted against the plan allowance.
+  unit: records
+  aggregation: max
+  dimensions:
+  - account
+  - plan
+- name: ai_credits
+  description: AI credits consumed per month against the plan allowance.
+  unit: credits
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: workflow_actions
+  description: Workflow automation actions executed per month against the plan allowance.
+  unit: actions
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+principles:
+- name: Visibility
+  description: Track the active plan and monitor consumption of app users, records, AI credits, and Workflow actions against allowances in the workspace billing area.
+- name: Allocation
+  description: Map each Softr workspace and published app to the team or client it serves; tag API tokens per integration.
+- name: Optimization
+  description: Right-size the plan to actual app-user counts and record volume; avoid Professional app-user overages by managing inactive users; consolidate apps within a workspace.
+- name: Accountability
+  description: Assign a workspace owner responsible for plan tier and overage review; revisit allowance burn before each renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

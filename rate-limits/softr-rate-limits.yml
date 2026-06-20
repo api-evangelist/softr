@@ -1,0 +1,73 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Softr
+providerId: softr
+created: '2026-06-20'
+modified: '2026-06-20'
+reconciled: true
+tags:
+- No Code
+- App Builder
+- Database
+- User Management
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  The Softr Database API enforces per-token rate limits: read operations (GET
+  and POST /search) are limited to 40 requests/second and write operations
+  (POST, PUT, PATCH, DELETE) to 30 requests/second. Exceeding a limit returns
+  HTTP 429. Published-app subscription allowances (app users, Softr Database
+  records, AI credits, Workflow actions) act as plan-level quotas. Per-second
+  limits for the Users Management API are not separately documented.
+notes: >-
+  Database API per-second limits are documented; Users Management API
+  throttling is not published. Plan quotas (records, app users, AI credits,
+  Workflow actions) are enforced at the subscription level - see the Plans
+  artifact.
+sources:
+- https://docs.softr.io/softr-api/softr-database-api/rate-limiting/index.md
+- https://docs.softr.io/softr-api/api-setup-and-endpoints
+- https://www.softr.io/pricing
+responseCodes:
+  throttled: 429
+limits:
+- name: Database API Reads
+  scope: token
+  metric: requests
+  limit: 40 per second
+  notes: Applies to GET requests and POST /search on the Softr Database API.
+- name: Database API Writes
+  scope: token
+  metric: requests
+  limit: 30 per second
+  notes: Applies to POST, PUT, PATCH, and DELETE on the Softr Database API.
+- name: Users Management API
+  scope: token
+  metric: requests
+  limit: see provider documentation
+  notes: No per-second rate limit is separately documented for studio-api.softr.io.
+- name: Softr Database Records
+  scope: account
+  metric: records
+  limit: plan-dependent (5,000 Free to 1,000,000 Business)
+  notes: Subscription-level quota on stored records; varies by plan.
+- name: App Users
+  scope: account
+  metric: users
+  limit: plan-dependent (10 Free to 500 Business)
+  notes: Subscription-level quota on published-app end users; varies by plan.
+- name: Workflow Actions
+  scope: account
+  metric: actions
+  limit: plan-dependent (500 Free to 25,000 Business per month)
+  notes: Monthly subscription-level quota on Workflow automation actions.
+policies:
+- name: Tiered Quotas
+  description: Record, app-user, AI-credit, and Workflow-action allowances rise with the subscription plan and are custom on Enterprise.
+- name: Backoff Strategy
+  description: On HTTP 429 the Softr Database API recommends implementing backoff logic and retrying after a brief pause.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

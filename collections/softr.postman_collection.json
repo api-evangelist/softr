@@ -1,0 +1,703 @@
+{
+  "item": [
+    {
+      "id": "9f1d2c40-1a11-4f01-b001-001a000000a1",
+      "name": "Users",
+      "description": {
+        "content": "Manage end users of a published Softr app. Requires Softr-Api-Key and Softr-Domain headers.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a2",
+          "name": "Create a user",
+          "request": {
+            "name": "Create a user",
+            "description": {
+              "content": "Creates a user inside the specified Softr app. Password is auto-generated if omitted.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"John Richardson\",\n  \"email\": \"johnr@gmail.com\",\n  \"password\": \"12345678\",\n  \"generate_magic_link\": true\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a3",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Removes an existing user from the Softr app. Irreversible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                ":email"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "johnr@gmail.com"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a4",
+          "name": "Activate a user",
+          "request": {
+            "name": "Activate a user",
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                ":email",
+                "activate"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "johnr@gmail.com"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a5",
+          "name": "Deactivate a user",
+          "request": {
+            "name": "Deactivate a user",
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                ":email",
+                "deactivate"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "johnr@gmail.com"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a6",
+          "name": "Invite a user",
+          "request": {
+            "name": "Invite a user",
+            "description": {
+              "content": "Sends an invitation email to an existing user. The app must be published.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                ":email",
+                "invite"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "johnr@gmail.com"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a7",
+          "name": "Generate a Magic Link",
+          "request": {
+            "name": "Generate a Magic Link",
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                "magic-link",
+                "generate",
+                ":email"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "email",
+                  "value": "johnr@gmail.com"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001a000000a8",
+          "name": "Sync users",
+          "request": {
+            "name": "Sync users",
+            "description": {
+              "content": "Syncs a single user, a group of users, or all users of the Softr app.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "api",
+                "users",
+                "sync"
+              ],
+              "host": [
+                "{{usersBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              },
+              {
+                "key": "Softr-Domain",
+                "value": "{{softrDomain}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "9f1d2c40-1a11-4f01-b001-001b000000b1",
+      "name": "Database",
+      "description": {
+        "content": "Read and write records in Softr Databases. Requires a Softr-Api-Key header.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b2",
+          "name": "List databases",
+          "request": {
+            "name": "List databases",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b3",
+          "name": "List records",
+          "request": {
+            "name": "List records",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "key": "fieldNames",
+                  "value": "true"
+                }
+              ],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b4",
+          "name": "Create a record",
+          "request": {
+            "name": "Create a record",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"Name\": \"Acme Co\",\n    \"Status\": \"Active\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b5",
+          "name": "Get a single record",
+          "request": {
+            "name": "Get a single record",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records",
+                ":recordId"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                },
+                {
+                  "key": "recordId",
+                  "value": "{{recordId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b6",
+          "name": "Update a record",
+          "request": {
+            "name": "Update a record",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records",
+                ":recordId"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                },
+                {
+                  "key": "recordId",
+                  "value": "{{recordId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "PATCH",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"fields\": {\n    \"Status\": \"Inactive\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b7",
+          "name": "Delete a record",
+          "request": {
+            "name": "Delete a record",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records",
+                ":recordId"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                },
+                {
+                  "key": "recordId",
+                  "value": "{{recordId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "DELETE"
+          },
+          "response": []
+        },
+        {
+          "id": "9f1d2c40-1a11-4f01-b001-001b000000b8",
+          "name": "Search records",
+          "request": {
+            "name": "Search records",
+            "url": {
+              "path": [
+                "api",
+                "v1",
+                "databases",
+                ":databaseId",
+                "tables",
+                ":tableId",
+                "records",
+                "search"
+              ],
+              "host": [
+                "{{tablesBaseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "key": "databaseId",
+                  "value": "{{databaseId}}"
+                },
+                {
+                  "key": "tableId",
+                  "value": "{{tableId}}"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Softr-Api-Key",
+                "value": "{{softrApiKey}}"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"Status\": \"Active\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://studio-api.softr.io",
+      "key": "usersBaseUrl"
+    },
+    {
+      "type": "string",
+      "value": "https://tables-api.softr.io",
+      "key": "tablesBaseUrl"
+    },
+    {
+      "type": "string",
+      "value": "your-softr-api-key",
+      "key": "softrApiKey"
+    },
+    {
+      "type": "string",
+      "value": "yourdomain.com",
+      "key": "softrDomain"
+    },
+    {
+      "type": "string",
+      "value": "your-database-id",
+      "key": "databaseId"
+    },
+    {
+      "type": "string",
+      "value": "your-table-id",
+      "key": "tableId"
+    },
+    {
+      "type": "string",
+      "value": "your-record-id",
+      "key": "recordId"
+    }
+  ],
+  "info": {
+    "_postman_id": "9f1d2c40-1a11-4f01-b001-001000000001",
+    "name": "Softr API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST APIs for Softr - the Users Management API (studio-api.softr.io) and the Softr Database API (tables-api.softr.io). Authenticated with a Softr-Api-Key header; the Users Management API also requires a Softr-Domain header.\n\nContact Support:\n URL: https://docs.softr.io",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,86 @@
+aid: softr
+name: Softr
+review:
+  question: Does Softr expose a documented public WebSocket or inbound webhook subscription API?
+  answer: false
+  date: '2026-06-20'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. Softr documents only synchronous REST
+    APIs (the Users Management API at studio-api.softr.io and the Softr
+    Database API at tables-api.softr.io). Outbound webhook calls exist only as
+    a Workflows feature configured inside the app builder; there is no
+    documented public REST API to subscribe to, register, or manage webhooks,
+    and no streaming (SSE or WebSocket) surface. There is therefore no
+    event-driven message channel to model.
+findings:
+  summary: |
+    Softr does not publish a documented public WebSocket API or an inbound
+    public webhook subscription REST API. The documented programmatic surface
+    is REST over HTTPS: the Users Management API (create / delete / activate /
+    deactivate / invite / magic-link / sync / validate-token) at
+    https://studio-api.softr.io/v1/api and the Softr Database API (databases,
+    tables, table fields, records CRUD + search) at
+    https://tables-api.softr.io/api/v1. Both authenticate with a Softr-Api-Key
+    header; the Users Management API additionally requires a Softr-Domain
+    header. Webhooks exist only as outbound HTTP actions within Softr Workflows,
+    configured in the app builder rather than via a documented API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://studio-api.softr.io/v1/api
+      documented: true
+    - protocol: REST
+      scheme: https
+      baseURL: https://tables-api.softr.io/api/v1
+      documented: true
+    - protocol: Webhook (outbound)
+      scheme: https
+      documented: true
+      note: Outbound HTTP webhook calls are fired by Softr Workflows on app events; configured in the app builder, not via a public subscription API.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the Softr API reference.
+  endpointsConfirmedRest:
+    - POST   https://studio-api.softr.io/v1/api/users
+    - DELETE https://studio-api.softr.io/v1/api/users/{email}
+    - POST   https://studio-api.softr.io/v1/api/users/{email}/activate
+    - POST   https://studio-api.softr.io/v1/api/users/{email}/deactivate
+    - POST   https://studio-api.softr.io/v1/api/users/{email}/invite
+    - POST   https://studio-api.softr.io/v1/api/users/magic-link/generate/{email}
+    - POST   https://studio-api.softr.io/v1/api/users/sync
+    - POST   https://studio-api.softr.io/v1/api/users/validate-token
+    - GET    https://tables-api.softr.io/api/v1/databases
+    - GET    https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records
+    - POST   https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records
+    - GET    https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}
+    - PATCH  https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}
+    - DELETE https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/{recordId}
+    - POST   https://tables-api.softr.io/api/v1/databases/{databaseId}/tables/{tableId}/records/search
+sources:
+  - url: https://docs.softr.io/softr-api/api-setup-and-endpoints
+    type: APIReference
+    note: Lists the Users Management endpoints and the Softr-Api-Key / Softr-Domain headers; all HTTPS REST.
+  - url: https://docs.softr.io/softr-api/softr-database-api
+    type: Documentation
+    note: Documents the Softr Database API (databases, tables, fields, records) over HTTPS REST.
+  - url: https://docs.softr.io/softr-api/softr-database-api/rate-limiting/index.md
+    type: Documentation
+    note: Reads 40 req/s, writes 30 req/s per token; HTTP 429 on exceed. No streaming transport mentioned.
+  - url: https://docs.softr.io/workflows
+    type: Documentation
+    note: Workflows fire outbound automations and HTTP webhook calls; no inbound public webhook subscription API.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket or inbound webhook subscription surface exists to model in
+    AsyncAPI. Only synchronous REST APIs are documented; these are captured in
+    openapi/softr-openapi.yml and referenced from apis.yml. The outbound
+    Workflows webhook capability is recorded as a non-API surface in apis.yml
+    (softr:webhooks) for completeness.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
