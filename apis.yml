@@ -83,6 +83,10 @@ apis:
     react to activity inside a Softr app. There is no documented inbound public webhook
     subscription REST API.
 common:
+- type: DomainSecurity
+  url: security/softr-domain-security.yml
+- type: Authentication
+  url: authentication/softr-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/softr-io
 - type: LinkedIn
@@ -97,6 +101,8 @@ common:
   url: rate-limits/softr-rate-limits.yml
 - type: FinOps
   url: finops/softr-finops.yml
+- url: https://www.softr.io/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

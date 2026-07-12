@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/softr-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: SoftrApiKey
+  type: apiKey
+  in: header
+  parameter: Softr-Api-Key
+  description: Personal access token generated from the Softr workspace settings.
+  sources:
+  - openapi/softr-openapi.yml
