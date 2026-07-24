@@ -1,0 +1,269 @@
+openapi: 3.0.1
+info:
+  title: Softr Databases Records API
+  description: Public REST APIs for Softr - the no-code app and client-portal builder. Covers the Users Management API (studio-api.softr.io) for managing the end users of a published Softr app, and the Softr Database API (tables-api.softr.io) for reading and writing records in the native Softr Database. Both APIs authenticate with a Softr-Api-Key header; the Users Management API additionally requires a Softr-Domain header identifying the target app.
+  termsOfService: https://www.softr.io/terms
+  contact:
+    name: Softr Support
+    url: https://docs.softr.io
+  version: '1.0'
+servers:
+- url: https://studio-api.softr.io/v1/api
+  description: Users Management API
+- url: https://tables-api.softr.io/api/v1
+  description: Softr Database API
+security:
+- SoftrApiKey: []
+tags:
+- name: Records
+  description: Create, read, update, delete, and search records.
+paths:
+  /databases/{databaseId}/tables/{tableId}/records:
+    get:
+      operationId: listRecords
+      tags:
+      - Records
+      summary: List records
+      description: Retrieves records from a table with pagination. Use fieldNames=true to return human-readable field names instead of field IDs.
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - name: limit
+        in: query
+        description: Maximum number of records to return (max 200, default 20).
+        schema:
+          type: integer
+          default: 20
+          maximum: 200
+      - name: offset
+        in: query
+        description: Number of records to skip for pagination.
+        schema:
+          type: integer
+      - $ref: '#/components/parameters/FieldNames'
+      responses:
+        '200':
+          description: A page of records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createRecord
+      tags:
+      - Records
+      summary: Create a record
+      description: Creates a record in the specified table.
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecordRequest'
+      responses:
+        '200':
+          description: Record created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /databases/{databaseId}/tables/{tableId}/records/{recordId}:
+    get:
+      operationId: getRecord
+      tags:
+      - Records
+      summary: Get a single record
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - $ref: '#/components/parameters/RecordId'
+      - $ref: '#/components/parameters/FieldNames'
+      responses:
+        '200':
+          description: The requested record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateRecord
+      tags:
+      - Records
+      summary: Update a record
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - $ref: '#/components/parameters/RecordId'
+      - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecordRequest'
+      responses:
+        '200':
+          description: Record updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteRecord
+      tags:
+      - Records
+      summary: Delete a record
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - $ref: '#/components/parameters/RecordId'
+      responses:
+        '200':
+          description: Record deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /databases/{databaseId}/tables/{tableId}/records/search:
+    post:
+      operationId: searchRecords
+      tags:
+      - Records
+      summary: Search records
+      description: Searches and filters records in a table.
+      servers:
+      - url: https://tables-api.softr.io/api/v1
+      parameters:
+      - $ref: '#/components/parameters/DatabaseId'
+      - $ref: '#/components/parameters/TableId'
+      - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Filter criteria for the search.
+      responses:
+        '200':
+          description: Matching records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  schemas:
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+        tableId:
+          type: string
+        fields:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateRecordRequest:
+      type: object
+      required:
+      - fields
+      properties:
+        fields:
+          type: object
+          description: Map of field ID (or field name when fieldNames=true) to value.
+          additionalProperties: true
+  parameters:
+    RecordId:
+      name: recordId
+      in: path
+      required: true
+      schema:
+        type: string
+    DatabaseId:
+      name: databaseId
+      in: path
+      required: true
+      schema:
+        type: string
+    FieldNames:
+      name: fieldNames
+      in: query
+      description: When true, uses human-readable field names instead of field IDs.
+      schema:
+        type: boolean
+    TableId:
+      name: tableId
+      in: path
+      required: true
+      schema:
+        type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
+    TooManyRequests:
+      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
+  securitySchemes:
+    SoftrApiKey:
+      type: apiKey
+      in: header
+      name: Softr-Api-Key
+      description: Personal access token generated from the Softr workspace settings.
