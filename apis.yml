@@ -7,7 +7,20 @@ description: Softr is a no-code platform for building client portals, internal t
   public REST APIs let you manage app users (create, invite, activate, magic links)
   and read and write records in Softr Databases programmatically using a Softr-Api-Key
   header.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/softr.png
 tags:
 - No Code
 - App Builder
@@ -18,54 +31,6 @@ created: '2026-06-20'
 modified: '2026-06-20'
 specificationVersion: '0.19'
 apis:
-- aid: softr:users-management-api
-  name: Softr Users Management API
-  tags:
-  - Users
-  - Authentication
-  - Magic Link
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
-  baseURL: https://studio-api.softr.io/v1/api
-  properties:
-  - url: https://docs.softr.io/softr-api
-    type: Documentation
-  - url: https://docs.softr.io/softr-api/api-setup-and-endpoints
-    type: APIReference
-  - url: openapi/softr-openapi.yml
-    type: OpenAPI
-  - url: collections/softr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/softr.opencollection.json
-    type: OpenCollection
-  description: Manage the end users of a published Softr app - create users, delete
-    them, activate and deactivate accounts, send invitation emails, generate Magic
-    Links, sync users, and validate auth tokens. Authenticated with a Softr-Api-Key
-    and a Softr-Domain header.
-- aid: softr:app-data-api
-  name: Softr Database API
-  tags:
-  - Database
-  - Records
-  - Tables
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.softr.io/softr-api/softr-database-api
-  baseURL: https://tables-api.softr.io/api/v1
-  properties:
-  - url: https://docs.softr.io/softr-api/softr-database-api
-    type: Documentation
-  - url: https://docs.softr.io/softr-api/softr-database-api/records/get-records.md
-    type: APIReference
-  - url: openapi/softr-openapi.yml
-    type: OpenAPI
-  - url: collections/softr.postman_collection.json
-    type: PostmanCollection
-  - url: collections/softr.opencollection.json
-    type: OpenCollection
-  description: Public REST API for the native Softr Database - list databases, manage
-    tables and table fields, and perform CRUD plus search over records. Authenticated
-    with a Softr-Api-Key header; reads are limited to 40 req/s and writes to 30 req/s
-    per token.
 - aid: softr:webhooks
   name: Softr Webhooks and Workflows
   tags:
@@ -78,10 +43,76 @@ apis:
   properties:
   - url: https://docs.softr.io/workflows
     type: Documentation
-  description: Softr Workflows fire outbound automations and HTTP webhook calls in
-    response to app events (such as record or user changes), letting external systems
-    react to activity inside a Softr app. There is no documented inbound public webhook
-    subscription REST API.
+  description: >-
+    Softr Workflows fire outbound automations and HTTP webhook calls in response to app events (such as
+    record or user changes), letting external systems react to activity inside a Softr app. There is no
+    documented inbound public webhook subscription REST API.
+- aid: softr:softr-databases-api
+  name: Softr Databases API
+  description: List and manage Softr Databases.
+  humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  baseURL: https://studio-api.softr.io/v1/api
+  tags:
+  - Databases
+  properties:
+  - type: OpenAPI
+    url: openapi/softr-databases-api-openapi.yml
+  - type: Documentation
+    url: https://docs.softr.io/softr-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  - type: PostmanCollection
+    url: collections/softr.postman_collection.json
+  - type: OpenCollection
+    url: collections/softr.opencollection.json
+  - type: Documentation
+    url: https://docs.softr.io/softr-api/softr-database-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/softr-database-api/records/get-records.md
+- aid: softr:softr-records-api
+  name: Softr Records API
+  description: Create, read, update, delete, and search records.
+  humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  baseURL: https://studio-api.softr.io/v1/api
+  tags:
+  - Records
+  properties:
+  - type: OpenAPI
+    url: openapi/softr-records-api-openapi.yml
+  - type: Documentation
+    url: https://docs.softr.io/softr-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  - type: PostmanCollection
+    url: collections/softr.postman_collection.json
+  - type: OpenCollection
+    url: collections/softr.opencollection.json
+  - type: Documentation
+    url: https://docs.softr.io/softr-api/softr-database-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/softr-database-api/records/get-records.md
+- aid: softr:softr-users-api
+  name: Softr Users API
+  description: Manage end users of a published Softr app.
+  humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  baseURL: https://studio-api.softr.io/v1/api
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/softr-users-api-openapi.yml
+  - type: Documentation
+    url: https://docs.softr.io/softr-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/api-setup-and-endpoints
+  - type: PostmanCollection
+    url: collections/softr.postman_collection.json
+  - type: OpenCollection
+    url: collections/softr.opencollection.json
+  - type: Documentation
+    url: https://docs.softr.io/softr-api/softr-database-api
+  - type: APIReference
+    url: https://docs.softr.io/softr-api/softr-database-api/records/get-records.md
 common:
 - type: AgenticAccess
   url: agentic-access/softr-agentic-access.yml
