@@ -1,0 +1,492 @@
+openapi: 3.0.1
+info:
+  title: Softr API
+  description: >-
+    Public REST APIs for Softr - the no-code app and client-portal builder.
+    Covers the Users Management API (studio-api.softr.io) for managing the end
+    users of a published Softr app, and the Softr Database API
+    (tables-api.softr.io) for reading and writing records in the native Softr
+    Database. Both APIs authenticate with a Softr-Api-Key header; the Users
+    Management API additionally requires a Softr-Domain header identifying the
+    target app.
+  termsOfService: https://www.softr.io/terms
+  contact:
+    name: Softr Support
+    url: https://docs.softr.io
+  version: '1.0'
+servers:
+  - url: https://studio-api.softr.io/v1/api
+    description: Users Management API
+  - url: https://tables-api.softr.io/api/v1
+    description: Softr Database API
+security:
+  - SoftrApiKey: []
+tags:
+  - name: Users
+    description: Manage end users of a published Softr app.
+  - name: Databases
+    description: List and manage Softr Databases.
+  - name: Tables
+    description: Manage tables within a Softr Database.
+  - name: Records
+    description: Create, read, update, delete, and search records.
+paths:
+  /users:
+    post:
+      operationId: createUser
+      tags:
+        - Users
+      summary: Create a user
+      description: >-
+        Creates a user inside the specified Softr app. If no password is
+        supplied one is generated automatically. The app must be published and
+        the Softr-Domain header must identify the app.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+      responses:
+        '200':
+          description: User created.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{email}:
+    delete:
+      operationId: deleteUser
+      tags:
+        - Users
+      summary: Delete a user
+      description: Removes an existing user from the Softr app. This action is irreversible.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          description: User deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{email}/activate:
+    post:
+      operationId: activateUser
+      tags:
+        - Users
+      summary: Activate a user
+      description: Reactivates a previously deactivated user in the specified Softr app.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          description: User activated.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{email}/deactivate:
+    post:
+      operationId: deactivateUser
+      tags:
+        - Users
+      summary: Deactivate a user
+      description: Deactivates a user, disabling login while preserving the user record.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          description: User deactivated.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/{email}/invite:
+    post:
+      operationId: inviteUser
+      tags:
+        - Users
+      summary: Invite a user
+      description: >-
+        Sends an invitation email to an existing user of the Softr app and sets
+        the user status to Invited. The app must be published for invitations to
+        be sent.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          description: Invitation sent.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/magic-link/generate/{email}:
+    post:
+      operationId: generateMagicLink
+      tags:
+        - Users
+      summary: Generate a Magic Link
+      description: Generates a Magic Link granting passwordless access for the specified user.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+        - $ref: '#/components/parameters/Email'
+      responses:
+        '200':
+          description: Magic Link generated.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MagicLink'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /users/sync:
+    post:
+      operationId: syncUsers
+      tags:
+        - Users
+      summary: Sync users
+      description: Syncs a single user, a group of users, or all users of the Softr app.
+      parameters:
+        - $ref: '#/components/parameters/SoftrDomain'
+      responses:
+        '200':
+          description: Sync started.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /databases:
+    get:
+      operationId: listDatabases
+      tags:
+        - Databases
+      summary: List databases
+      description: Lists the Softr Databases accessible to the API token.
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      responses:
+        '200':
+          description: A list of databases.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Database'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /databases/{databaseId}/tables/{tableId}/records:
+    get:
+      operationId: listRecords
+      tags:
+        - Records
+      summary: List records
+      description: >-
+        Retrieves records from a table with pagination. Use fieldNames=true to
+        return human-readable field names instead of field IDs.
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - name: limit
+          in: query
+          description: Maximum number of records to return (max 200, default 20).
+          schema:
+            type: integer
+            default: 20
+            maximum: 200
+        - name: offset
+          in: query
+          description: Number of records to skip for pagination.
+          schema:
+            type: integer
+        - $ref: '#/components/parameters/FieldNames'
+      responses:
+        '200':
+          description: A page of records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    post:
+      operationId: createRecord
+      tags:
+        - Records
+      summary: Create a record
+      description: Creates a record in the specified table.
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecordRequest'
+      responses:
+        '200':
+          description: Record created.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /databases/{databaseId}/tables/{tableId}/records/{recordId}:
+    get:
+      operationId: getRecord
+      tags:
+        - Records
+      summary: Get a single record
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - $ref: '#/components/parameters/RecordId'
+        - $ref: '#/components/parameters/FieldNames'
+      responses:
+        '200':
+          description: The requested record.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    patch:
+      operationId: updateRecord
+      tags:
+        - Records
+      summary: Update a record
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - $ref: '#/components/parameters/RecordId'
+        - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecordRequest'
+      responses:
+        '200':
+          description: Record updated.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+    delete:
+      operationId: deleteRecord
+      tags:
+        - Records
+      summary: Delete a record
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - $ref: '#/components/parameters/RecordId'
+      responses:
+        '200':
+          description: Record deleted.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+  /databases/{databaseId}/tables/{tableId}/records/search:
+    post:
+      operationId: searchRecords
+      tags:
+        - Records
+      summary: Search records
+      description: Searches and filters records in a table.
+      servers:
+        - url: https://tables-api.softr.io/api/v1
+      parameters:
+        - $ref: '#/components/parameters/DatabaseId'
+        - $ref: '#/components/parameters/TableId'
+        - $ref: '#/components/parameters/FieldNames'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              description: Filter criteria for the search.
+      responses:
+        '200':
+          description: Matching records.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Record'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+components:
+  securitySchemes:
+    SoftrApiKey:
+      type: apiKey
+      in: header
+      name: Softr-Api-Key
+      description: Personal access token generated from the Softr workspace settings.
+  parameters:
+    SoftrDomain:
+      name: Softr-Domain
+      in: header
+      required: true
+      description: The domain or subdomain of the target Softr app (Users Management API only).
+      schema:
+        type: string
+    Email:
+      name: email
+      in: path
+      required: true
+      description: The email address identifying the user.
+      schema:
+        type: string
+        format: email
+    DatabaseId:
+      name: databaseId
+      in: path
+      required: true
+      schema:
+        type: string
+    TableId:
+      name: tableId
+      in: path
+      required: true
+      schema:
+        type: string
+    RecordId:
+      name: recordId
+      in: path
+      required: true
+      schema:
+        type: string
+    FieldNames:
+      name: fieldNames
+      in: query
+      description: When true, uses human-readable field names instead of field IDs.
+      schema:
+        type: boolean
+  responses:
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
+    TooManyRequests:
+      description: >-
+        Rate limit exceeded. Reads are capped at 40 requests/second and writes
+        at 30 requests/second per token.
+  schemas:
+    CreateUserRequest:
+      type: object
+      required:
+        - full_name
+        - email
+      properties:
+        full_name:
+          type: string
+          example: John Richardson
+        email:
+          type: string
+          format: email
+          example: johnr@gmail.com
+        password:
+          type: string
+          description: Optional. Auto-generated if omitted.
+          example: '12345678'
+        generate_magic_link:
+          type: boolean
+          description: Whether to generate a Magic Link for the new user.
+          example: true
+    User:
+      type: object
+      properties:
+        full_name:
+          type: string
+        email:
+          type: string
+          format: email
+        status:
+          type: string
+          example: Active
+    MagicLink:
+      type: object
+      properties:
+        magic_link:
+          type: string
+          format: uri
+    Database:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+    Record:
+      type: object
+      properties:
+        id:
+          type: string
+        tableId:
+          type: string
+        fields:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateRecordRequest:
+      type: object
+      required:
+        - fields
+      properties:
+        fields:
+          type: object
+          description: Map of field ID (or field name when fieldNames=true) to value.
+          additionalProperties: true

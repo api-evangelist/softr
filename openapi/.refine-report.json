@@ -1,0 +1,18 @@
+{
+  "provider": "softr",
+  "sources": [
+    "softr-databases-api-openapi.yml",
+    "softr-records-api-openapi.yml",
+    "softr-users-api-openapi.yml"
+  ],
+  "outputs": [
+    "softr-databases-api-openapi.yml",
+    "softr-records-api-openapi.yml",
+    "softr-users-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
