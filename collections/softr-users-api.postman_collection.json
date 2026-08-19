@@ -1,0 +1,1136 @@
+{
+  "item": [
+    {
+      "id": "c9d39f5a-8ade-4dbb-adf1-f784efc5dc7d",
+      "name": "Users",
+      "description": {
+        "content": "Manage end users of a published Softr app.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3cfb90cb-6cb2-42dd-9adb-0e2f8577770c",
+          "name": "Create a user",
+          "request": {
+            "name": "Create a user",
+            "description": {
+              "content": "Creates a user inside the specified Softr app. If no password is supplied one is generated automatically. The app must be published and the Softr-Domain header must identify the app.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"full_name\": \"<string>\",\n  \"email\": \"<email>\",\n  \"password\": \"<string>\",\n  \"generate_magic_link\": \"<boolean>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "432ca8fe-68fe-41f6-a72a-f14e514e0832",
+              "name": "User created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"full_name\": \"John Richardson\",\n  \"email\": \"johnr@gmail.com\",\n  \"password\": \"12345678\",\n  \"generate_magic_link\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"full_name\": \"string\",\n  \"email\": \"eGJ9hfe0iq@TnfbHaLwDVFLJIoGcmPASxmtxUK.hrid\",\n  \"status\": \"Active\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "66b9e071-8e15-4a4f-9ce3-b0330e7a2c6c",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"full_name\": \"John Richardson\",\n  \"email\": \"johnr@gmail.com\",\n  \"password\": \"12345678\",\n  \"generate_magic_link\": true\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "28387c56-4b24-4225-951e-f1fd30991c92",
+          "name": "Delete a user",
+          "request": {
+            "name": "Delete a user",
+            "description": {
+              "content": "Removes an existing user from the Softr app. This action is irreversible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) The email address identifying the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bff6c851-0a19-4c83-bf1d-2c2ab14577a1",
+              "name": "User deleted.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b28a9de8-3eee-4008-a933-43b3610289c4",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "093e1f3b-6bae-4330-8219-9ed3afd1d02e",
+          "name": "Activate a user",
+          "request": {
+            "name": "Activate a user",
+            "description": {
+              "content": "Reactivates a previously deactivated user in the specified Softr app.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":email",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) The email address identifying the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "038b3659-e76b-4c72-ae33-915f7bbdd77f",
+              "name": "User activated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "511aef5f-e361-4a74-8baf-e414382f99a5",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b4a73b6-4a8e-4c25-b1c5-858017fdc1ab",
+          "name": "Deactivate a user",
+          "request": {
+            "name": "Deactivate a user",
+            "description": {
+              "content": "Deactivates a user, disabling login while preserving the user record.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":email",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) The email address identifying the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fa1e967f-f4ec-4e52-a8cb-3a0ae05017e6",
+              "name": "User deactivated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cfdf6184-358c-40a9-996c-c72444ae98e8",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c4d2d6e8-00d4-45d6-af21-7f5841e3319d",
+          "name": "Invite a user",
+          "request": {
+            "name": "Invite a user",
+            "description": {
+              "content": "Sends an invitation email to an existing user of the Softr app and sets the user status to Invited. The app must be published for invitations to be sent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                ":email",
+                "invite"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) The email address identifying the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "adc1b6f0-4e33-4193-aa80-a3bd7ed070f6",
+              "name": "Invitation sent.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "87019e01-8481-41e0-9e9d-13d7ec152a8b",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    ":email",
+                    "invite"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4ade8009-60b8-45e5-90fb-8c3778feb6d2",
+          "name": "Generate a Magic Link",
+          "request": {
+            "name": "Generate a Magic Link",
+            "description": {
+              "content": "Generates a Magic Link granting passwordless access for the specified user.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "magic-link",
+                "generate",
+                ":email"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<email>",
+                  "key": "email",
+                  "description": "(Required) The email address identifying the user."
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "faaa20ab-c6b2-42f6-ba07-ee335137cd52",
+              "name": "Magic Link generated.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "magic-link",
+                    "generate",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"magic_link\": \"http://fZRxFFxcUIhEkSytXKwhgNA.apA56bLegg7IuUdOHsGQC\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "72ef8288-131d-4226-9bb1-f65c535e788e",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "magic-link",
+                    "generate",
+                    ":email"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<email>",
+                      "key": "email",
+                      "description": "(Required) The email address identifying the user."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "98ab28b1-9d43-4310-bdae-83f2b8490190",
+          "name": "Sync users",
+          "request": {
+            "name": "Sync users",
+            "description": {
+              "content": "Syncs a single user, a group of users, or all users of the Softr app.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "users",
+                "sync"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                "key": "Softr-Domain",
+                "value": "<string>"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "959ed0ce-3d0c-465a-97b1-1256e50bdd1e",
+              "name": "Sync started.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "543de8a8-a02a-4733-8667-6edb9a2dcf59",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "users",
+                    "sync"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) The domain or subdomain of the target Softr app (Users Management API only).",
+                    "key": "Softr-Domain",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://studio-api.softr.io/v1/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Softr-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "41739037-f220-4491-8cd0-20e3e4aa1429",
+    "name": "Softr Databases Users API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST APIs for Softr - the no-code app and client-portal builder. Covers the Users Management API (studio-api.softr.io) for managing the end users of a published Softr app, and the Softr Database API (tables-api.softr.io) for reading and writing records in the native Softr Database. Both APIs authenticate with a Softr-Api-Key header; the Users Management API additionally requires a Softr-Domain header identifying the target app.\n\nContact Support:\n Name: Softr Support",
+      "type": "text/plain"
+    }
+  }
+}

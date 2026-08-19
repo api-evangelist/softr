@@ -1,0 +1,233 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Softr Databases Records API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Softr-Api-Key",
+      "value": "{{Softr-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Records",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List records",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of records to return (max 200, default 20)."
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Number of records to skip for pagination."
+              },
+              {
+                "name": "fieldNames",
+                "value": "",
+                "type": "query",
+                "description": "When true, uses human-readable field names instead of field IDs."
+              }
+            ]
+          },
+          "docs": "Retrieves records from a table with pagination. Use fieldNames=true to return human-readable field names instead of field IDs."
+        },
+        {
+          "info": {
+            "name": "Create a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldNames",
+                "value": "",
+                "type": "query",
+                "description": "When true, uses human-readable field names instead of field IDs."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a record in the specified table."
+        },
+        {
+          "info": {
+            "name": "Get a single record",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records/:recordId",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldNames",
+                "value": "",
+                "type": "query",
+                "description": "When true, uses human-readable field names instead of field IDs."
+              }
+            ]
+          },
+          "docs": "Get a single record"
+        },
+        {
+          "info": {
+            "name": "Update a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records/:recordId",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldNames",
+                "value": "",
+                "type": "query",
+                "description": "When true, uses human-readable field names instead of field IDs."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a record"
+        },
+        {
+          "info": {
+            "name": "Delete a record",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records/:recordId",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "recordId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a record"
+        },
+        {
+          "info": {
+            "name": "Search records",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/databases/:databaseId/tables/:tableId/records/search",
+            "params": [
+              {
+                "name": "databaseId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tableId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fieldNames",
+                "value": "",
+                "type": "query",
+                "description": "When true, uses human-readable field names instead of field IDs."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Searches and filters records in a table."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

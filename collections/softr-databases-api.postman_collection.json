@@ -1,0 +1,181 @@
+{
+  "item": [
+    {
+      "id": "0a3e759d-6ca1-4435-bd5a-0c544bc16c09",
+      "name": "Databases",
+      "description": {
+        "content": "List and manage Softr Databases.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f7796c3b-1051-41ce-93e0-b05d0d43b621",
+          "name": "List databases",
+          "request": {
+            "name": "List databases",
+            "description": {
+              "content": "Lists the Softr Databases accessible to the API token.",
+              "type": "text/plain"
+            },
+            "url": {
+              "protocol": "https",
+              "path": [
+                "api",
+                "v1",
+                "databases"
+              ],
+              "host": [
+                "tables-api",
+                "softr",
+                "io"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "a42ac8ef-26c8-4d8e-9526-39ebf6330bc5",
+              "name": "A list of databases.",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "databases"
+                  ],
+                  "host": [
+                    "tables-api",
+                    "softr",
+                    "io"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"name\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a8fad8de-07b0-47d7-8d09-35bd6477191b",
+              "name": "Missing or invalid Softr-Api-Key (or Softr-Domain).",
+              "originalRequest": {
+                "url": {
+                  "protocol": "https",
+                  "path": [
+                    "api",
+                    "v1",
+                    "databases"
+                  ],
+                  "host": [
+                    "tables-api",
+                    "softr",
+                    "io"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Softr-Api-Key",
+                    "value": "<API Key>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://studio-api.softr.io/v1/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Softr-Api-Key"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "95135c14-2d1c-4069-bb13-bca730e1773b",
+    "name": "Softr Databases API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Public REST APIs for Softr - the no-code app and client-portal builder. Covers the Users Management API (studio-api.softr.io) for managing the end users of a published Softr app, and the Softr Database API (tables-api.softr.io) for reading and writing records in the native Softr Database. Both APIs authenticate with a Softr-Api-Key header; the Users Management API additionally requires a Softr-Domain header identifying the target app.\n\nContact Support:\n Name: Softr Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Softr Databases Users API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Softr-Api-Key",
+      "value": "{{Softr-Api-Key}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a user inside the specified Softr app. If no password is supplied one is generated automatically. The app must be published and the Softr-Domain header must identify the app."
+        },
+        {
+          "info": {
+            "name": "Delete a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://studio-api.softr.io/v1/api/users/:email",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address identifying the user."
+              }
+            ]
+          },
+          "docs": "Removes an existing user from the Softr app. This action is irreversible."
+        },
+        {
+          "info": {
+            "name": "Activate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/:email/activate",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address identifying the user."
+              }
+            ]
+          },
+          "docs": "Reactivates a previously deactivated user in the specified Softr app."
+        },
+        {
+          "info": {
+            "name": "Deactivate a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/:email/deactivate",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address identifying the user."
+              }
+            ]
+          },
+          "docs": "Deactivates a user, disabling login while preserving the user record."
+        },
+        {
+          "info": {
+            "name": "Invite a user",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/:email/invite",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address identifying the user."
+              }
+            ]
+          },
+          "docs": "Sends an invitation email to an existing user of the Softr app and sets the user status to Invited. The app must be published for invitations to be sent."
+        },
+        {
+          "info": {
+            "name": "Generate a Magic Link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/magic-link/generate/:email",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "path",
+                "description": "The email address identifying the user."
+              }
+            ]
+          },
+          "docs": "Generates a Magic Link granting passwordless access for the specified user."
+        },
+        {
+          "info": {
+            "name": "Sync users",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://studio-api.softr.io/v1/api/users/sync",
+            "headers": [
+              {
+                "name": "Softr-Domain",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Syncs a single user, a group of users, or all users of the Softr app."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
