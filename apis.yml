@@ -22,6 +22,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/softr.png
 tags:
+- No-Code
+- App Builder
+- Client Portals
+- User Management
+- Database
+tags_raw:
 - No Code
 - App Builder
 - Client Portals
@@ -34,6 +40,10 @@ apis:
 - aid: softr:webhooks
   name: Softr Webhooks and Workflows
   tags:
+  - Webhook
+  - Workflows
+  - Automation
+  tags_raw:
   - Webhooks
   - Workflows
   - Automation
@@ -97,6 +107,8 @@ apis:
   humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
   baseURL: https://studio-api.softr.io/v1/api
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
