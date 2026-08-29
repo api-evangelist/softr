@@ -7,6 +7,18 @@ description: Softr is a no-code platform for building client portals, internal t
   public REST APIs let you manage app users (create, invite, activate, magic links)
   and read and write records in Softr Databases programmatically using a Softr-Api-Key
   header.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
