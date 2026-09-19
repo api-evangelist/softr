@@ -76,6 +76,8 @@ apis:
   humanURL: https://docs.softr.io/softr-api/api-setup-and-endpoints
   baseURL: https://studio-api.softr.io/v1/api
   tags:
+  - Database
+  tags_raw:
   - Databases
   properties:
   - type: OpenAPI
