@@ -1,6 +1,6 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: Softr Databases Records API
+  title: Softr Records API
   description: Public REST APIs for Softr - the no-code app and client-portal builder. Covers the Users Management API (studio-api.softr.io) for managing the end users of a published Softr app, and the Softr Database API (tables-api.softr.io) for reading and writing records in the native Softr Database. Both APIs authenticate with a Softr-Api-Key header; the Users Management API additionally requires a Softr-Domain header identifying the target app.
   termsOfService: https://www.softr.io/terms
   contact:
@@ -205,7 +205,46 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
+  parameters:
+    FieldNames:
+      name: fieldNames
+      in: query
+      description: When true, uses human-readable field names instead of field IDs.
+      schema:
+        type: boolean
+    TableId:
+      name: tableId
+      in: path
+      required: true
+      schema:
+        type: string
+    DatabaseId:
+      name: databaseId
+      in: path
+      required: true
+      schema:
+        type: string
+    RecordId:
+      name: recordId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    CreateRecordRequest:
+      type: object
+      required:
+      - fields
+      properties:
+        fields:
+          type: object
+          description: Map of field ID (or field name when fieldNames=true) to value.
+          additionalProperties: true
     Record:
       type: object
       properties:
@@ -222,45 +261,6 @@ components:
         updatedAt:
           type: string
           format: date-time
-    CreateRecordRequest:
-      type: object
-      required:
-      - fields
-      properties:
-        fields:
-          type: object
-          description: Map of field ID (or field name when fieldNames=true) to value.
-          additionalProperties: true
-  parameters:
-    RecordId:
-      name: recordId
-      in: path
-      required: true
-      schema:
-        type: string
-    DatabaseId:
-      name: databaseId
-      in: path
-      required: true
-      schema:
-        type: string
-    FieldNames:
-      name: fieldNames
-      in: query
-      description: When true, uses human-readable field names instead of field IDs.
-      schema:
-        type: boolean
-    TableId:
-      name: tableId
-      in: path
-      required: true
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
-    TooManyRequests:
-      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
   securitySchemes:
     SoftrApiKey:
       type: apiKey

@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: Softr Databases API
   description: Public REST APIs for Softr - the no-code app and client-portal builder. Covers the Users Management API (studio-api.softr.io) for managing the end users of a published Softr app, and the Softr Database API (tables-api.softr.io) for reading and writing records in the native Softr Database. Both APIs authenticate with a Softr-Api-Key header; the Users Management API additionally requires a Softr-Domain header identifying the target app.
@@ -42,6 +42,9 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
   schemas:
     Database:
       type: object
@@ -50,9 +53,6 @@ components:
           type: string
         name:
           type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
   securitySchemes:
     SoftrApiKey:
       type: apiKey

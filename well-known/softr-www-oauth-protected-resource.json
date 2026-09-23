@@ -1,0 +1,1 @@
+{"resource":"https://www.softr.io/v1/mcp","authorization_servers":["https://www.softr.io"],"scopes_supported":["mcp:read","mcp:write"],"bearer_methods_supported":["header"]}
