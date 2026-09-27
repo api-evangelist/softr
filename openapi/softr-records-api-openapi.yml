@@ -205,36 +205,36 @@ paths:
         '429':
           $ref: '#/components/responses/TooManyRequests'
 components:
-  responses:
-    TooManyRequests:
-      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
-    Unauthorized:
-      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
   parameters:
-    FieldNames:
-      name: fieldNames
-      in: query
-      description: When true, uses human-readable field names instead of field IDs.
-      schema:
-        type: boolean
-    TableId:
-      name: tableId
-      in: path
-      required: true
-      schema:
-        type: string
     DatabaseId:
       name: databaseId
       in: path
       required: true
       schema:
         type: string
+    TableId:
+      name: tableId
+      in: path
+      required: true
+      schema:
+        type: string
+    FieldNames:
+      name: fieldNames
+      in: query
+      description: When true, uses human-readable field names instead of field IDs.
+      schema:
+        type: boolean
     RecordId:
       name: recordId
       in: path
       required: true
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
+    TooManyRequests:
+      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
   schemas:
     CreateRecordRequest:
       type: object
