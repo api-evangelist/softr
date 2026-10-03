@@ -206,8 +206,20 @@ paths:
           $ref: '#/components/responses/TooManyRequests'
 components:
   parameters:
+    FieldNames:
+      name: fieldNames
+      in: query
+      description: When true, uses human-readable field names instead of field IDs.
+      schema:
+        type: boolean
     DatabaseId:
       name: databaseId
+      in: path
+      required: true
+      schema:
+        type: string
+    RecordId:
+      name: recordId
       in: path
       required: true
       schema:
@@ -218,33 +230,7 @@ components:
       required: true
       schema:
         type: string
-    FieldNames:
-      name: fieldNames
-      in: query
-      description: When true, uses human-readable field names instead of field IDs.
-      schema:
-        type: boolean
-    RecordId:
-      name: recordId
-      in: path
-      required: true
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
-    TooManyRequests:
-      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
   schemas:
-    CreateRecordRequest:
-      type: object
-      required:
-      - fields
-      properties:
-        fields:
-          type: object
-          description: Map of field ID (or field name when fieldNames=true) to value.
-          additionalProperties: true
     Record:
       type: object
       properties:
@@ -261,6 +247,20 @@ components:
         updatedAt:
           type: string
           format: date-time
+    CreateRecordRequest:
+      type: object
+      required:
+      - fields
+      properties:
+        fields:
+          type: object
+          description: Map of field ID (or field name when fieldNames=true) to value.
+          additionalProperties: true
+  responses:
+    TooManyRequests:
+      description: Rate limit exceeded. Reads are capped at 40 requests/second and writes at 30 requests/second per token.
+    Unauthorized:
+      description: Missing or invalid Softr-Api-Key (or Softr-Domain).
   securitySchemes:
     SoftrApiKey:
       type: apiKey

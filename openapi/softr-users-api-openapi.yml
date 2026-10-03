@@ -137,12 +137,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    MagicLink:
-      type: object
-      properties:
-        magic_link:
-          type: string
-          format: uri
     CreateUserRequest:
       type: object
       required:
@@ -164,6 +158,12 @@ components:
           type: boolean
           description: Whether to generate a Magic Link for the new user.
           example: true
+    MagicLink:
+      type: object
+      properties:
+        magic_link:
+          type: string
+          format: uri
     User:
       type: object
       properties:
