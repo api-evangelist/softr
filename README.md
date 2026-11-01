@@ -1,4 +1,4 @@
-# Softr (softr)
+# Softr
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,93 +66,129 @@
 
 Softr is a no-code platform for building client portals, internal tools, and web apps on top of Airtable, Google Sheets, and the native Softr Database. Its public REST APIs let you manage app users (create, invite, activate, magic links) and read and write records in Softr Databases programmatically using a Softr-Api-Key header.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/softr/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/softr/refs/heads/main/apis.yml)
+**Areas:** No-Code · App Builder · Client Portals · User Management · Database
 
-## Tags
+## Softr on APIs.io
 
-- No Code
-- App Builder
-- Client Portals
-- User Management
-- Database
+Everything profiled for Softr is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/softr/](https://apis.io/providers/softr/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (4)
 
-- **Created:** 2026-06-20
-- **Modified:** 2026-06-20
+- [Softr Webhooks and Workflows](https://apis.io/apis/softr/webhooks/) — Softr Workflows fire outbound automations and HTTP webhook calls in response to app events (such as record or user changes), letting external systems react…
+- [Softr Databases API](https://apis.io/apis/softr/softr-databases-api/) — List and manage Softr Databases.
+- [Softr Records API](https://apis.io/apis/softr/softr-records-api/) — Create, read, update, delete, and search records.
+- [Softr Users API](https://apis.io/apis/softr/softr-users-api/) — Manage end users of a published Softr app.
 
-## APIs
+### Published properties
 
-### Softr Users Management API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Manage the end users of a published Softr app - create users, delete them, activate and deactivate accounts, send invitation emails, generate Magic Links, sync users, and validate auth tokens. Authenticated with a Softr-Api-Key and a Softr-Domain header.
+#### MCP servers (1)
 
-- **Human URL:** [https://docs.softr.io/softr-api/api-setup-and-endpoints](https://docs.softr.io/softr-api/api-setup-and-endpoints)
-- **Base URL:** `https://studio-api.softr.io/v1/api`
+Model Context Protocol servers that expose the API to agents.
 
-#### Tags
+- [softr](https://apis.io/servers/softr/softr/)
 
-- Users
-- Authentication
-- Magic Link
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://docs.softr.io/softr-api)
-- [API Reference](https://docs.softr.io/softr-api/api-setup-and-endpoints)
-- [OpenAPI](openapi/softr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/softr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/softr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Softr Agentic Access](https://apis.io/agentic-access/softr/softr-agentic-access/)
 
-### Softr Database API
+#### Collections (4)
 
-Public REST API for the native Softr Database - list databases, manage tables and table fields, and perform CRUD plus search over records. Authenticated with a Softr-Api-Key header; reads are limited to 40 req/s and writes to 30 req/s per token.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://docs.softr.io/softr-api/softr-database-api](https://docs.softr.io/softr-api/softr-database-api)
-- **Base URL:** `https://tables-api.softr.io/api/v1`
+- [Softr API](https://apis.io/collections/softr/open-softr/)
+- [Softr Databases API](https://apis.io/collections/softr/open-softr-databases-api/)
+- [Softr Databases Records API](https://apis.io/collections/softr/open-softr-records-api/)
+- [Softr Databases Users API](https://apis.io/collections/softr/open-softr-users-api/)
 
-#### Tags
+#### Security (2)
 
-- Database
-- Records
-- Tables
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Softr Authentication](https://apis.io/security/softr/softr-authentication/)
+- [Softr Domain Security](https://apis.io/security/softr/softr-domain-security/)
 
-- [Documentation](https://docs.softr.io/softr-api/softr-database-api)
-- [API Reference](https://docs.softr.io/softr-api/softr-database-api/records/get-records.md)
-- [OpenAPI](openapi/softr-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/softr.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/softr.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Softr Webhooks and Workflows
+Published plans, tiers and prices.
 
-Softr Workflows fire outbound automations and HTTP webhook calls in response to app events (such as record or user changes), letting external systems react to activity inside a Softr app. There is no documented inbound public webhook subscription REST API.
+- [Softr Plans Pricing](https://apis.io/plans/softr/softr-plans-pricing/)
 
-- **Human URL:** [https://docs.softr.io/workflows](https://docs.softr.io/workflows)
-- **Base URL:** `https://studio-api.softr.io/v1/api`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Webhooks
-- Workflows
-- Automation
+- [Softr Rate Limits](https://apis.io/rate-limits/softr/softr-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://docs.softr.io/workflows)
+What the API costs to run, by operation.
 
-## Common Properties
+- [Softr Finops](https://apis.io/finops/softr/softr-finops/)
 
-- [GitHub Organization](https://github.com/softr-io)
-- [LinkedIn](https://www.linkedin.com/company/softr)
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
 - [Website](https://www.softr.io)
 - [Documentation](https://docs.softr.io)
-- [Plans](plans/softr-plans-pricing.yml)
-- [Rate Limits](rate-limits/softr-rate-limits.yml)
-- [Fin Ops](finops/softr-finops.yml)
+- [Blog](https://www.softr.io/blog)
+- [GitHub](https://github.com/softr-io)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 68.3 |
+| Contract quality | 49.0 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 40.1** — agent-ready (gated down from agent-native)
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | verified |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | verified |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | partial |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 11.8** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/softr/](https://apis.io/providers/softr/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Softr: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/softr/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
